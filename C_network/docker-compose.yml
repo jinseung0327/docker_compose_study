@@ -1,0 +1,25 @@
+version: '3'
+services:
+  ghost:
+    image: ghost
+    restart: always
+    ports:
+      - "60000:2368"
+    environment:
+      url: http://localhost:60000
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+    volumes:
+      - ghost_volume:/var/lib/ghost/content
+
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+
+volumes:
+  ghost_volume:
